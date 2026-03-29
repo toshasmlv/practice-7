@@ -1,31 +1,10 @@
-"""
-PhoneBook Application — backed by PostgreSQL
-=============================================
-Usage:
-    python phonebook.py
-
-Requirements:
-    pip install psycopg2-binary
-    A database.ini file with [postgresql] section (see README below).
-
-database.ini template
----------------------
-[postgresql]
-host=localhost
-database=phonebook_db
-user=postgres
-password=yourpassword
-"""
-
 import csv
 import psycopg2
 from connect import connect
 from config import load_config
 
 
-# ─────────────────────────────────────────────
 # 1. TABLE SETUP
-# ─────────────────────────────────────────────
 
 def create_table(conn):
     """Create the contacts table if it does not already exist."""
@@ -47,9 +26,7 @@ def create_table(conn):
         print(f'Error creating table: {error}')
 
 
-# ─────────────────────────────────────────────
 # 2. INSERT — from CSV file
-# ─────────────────────────────────────────────
 
 def insert_from_csv(conn, filepath='contacts.csv'):
     """
@@ -82,9 +59,7 @@ def insert_from_csv(conn, filepath='contacts.csv'):
         print(f'Error inserting from CSV: {error}')
 
 
-# ─────────────────────────────────────────────
 # 3. INSERT — from console input
-# ─────────────────────────────────────────────
 
 def insert_from_console(conn):
     """Prompt the user for a contact and insert it into the database."""
@@ -117,9 +92,7 @@ def insert_from_console(conn):
         print(f'Error inserting contact: {error}')
 
 
-# ─────────────────────────────────────────────
 # 4. UPDATE — name or phone
-# ─────────────────────────────────────────────
 
 def update_contact(conn):
     """Update first name, last name, or phone for a contact found by current phone."""
@@ -164,9 +137,7 @@ def update_contact(conn):
         print(f'Error updating contact: {error}')
 
 
-# ─────────────────────────────────────────────
 # 5. QUERY — various filters
-# ─────────────────────────────────────────────
 
 def _print_contacts(rows):
     """Pretty-print a list of contact rows."""
@@ -234,9 +205,7 @@ def list_all(conn):
         print(f'Error listing contacts: {error}')
 
 
-# ─────────────────────────────────────────────
 # 6. DELETE — by username or phone
-# ─────────────────────────────────────────────
 
 def delete_contact(conn):
     """Delete a contact by username (first+last) or phone number."""
@@ -269,9 +238,7 @@ def delete_contact(conn):
         print(f'Error deleting contact: {error}')
 
 
-# ─────────────────────────────────────────────
 # 7. MAIN MENU
-# ─────────────────────────────────────────────
 
 MENU = """
 ╔══════════════════════════════════════╗
